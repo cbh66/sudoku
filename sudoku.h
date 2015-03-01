@@ -1,5 +1,5 @@
-#ifndef SUDOKU_INCLUDED
-#define SUDOKU_INCLUDED
+#ifndef SUDOKU_H_INCLUDED
+#define SUDOKU_H_INCLUDED
 
 const int SIZE = 9;
 const int BLOCK = 3;

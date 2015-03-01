@@ -1,5 +1,5 @@
-#ifndef SPAN_INCLUDED
-#define SPAN_INCLUDED
+#ifndef SPAN_H_INCLUDED
+#define SPAN_H_INCLUDED
 
 void findRowSubsets(Guess board[][SIZE], int row,  bool numbers[]);
 void genSets(Guess board[][SIZE], int row, int col,

@@ -13,7 +13,7 @@ int blockOccurrences(Guess board[][SIZE], int num, int blockX, int blockY);
 
 void findUniqueNums(Guess board[][SIZE])
 {
-    int i, j, k, current;
+    int i, j, current;
     for (i = 0; i < SIZE; i++) {
         for (j = 0; j < SIZE; j++) {
             if (board[i][j].amt == 1) continue;

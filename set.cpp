@@ -1,6 +1,6 @@
 #include "set.h"
 
-void union(bool a[], bool b[], bool c[], int size)
+void setUnion(bool a[], bool b[], bool c[], int size)
 {
     int i;
     for (i = 0; i < size; ++i) {
@@ -9,7 +9,7 @@ void union(bool a[], bool b[], bool c[], int size)
 }
 
 
-void intersection(bool a[], bool b[], bool c[], unsigned size)
+void setIntersection(bool a[], bool b[], bool c[], unsigned size)
 {
     int i;
     for (i = 0; i < size; ++i) {

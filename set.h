@@ -6,23 +6,23 @@
  */
 
 
-/*  union()
+/*  setUnion()
  *  Purpose: Takes the union of two sets.
  *  Parameters: Three arrays, and a size.  All arrays must be of at least this
  *           size.  The third array will be modified, filled with the union of
  *           the first two.
  *  Returns: None.
  */
-void union(bool a[], bool b[], bool c[], unsigned size);
+void setUnion(bool a[], bool b[], bool c[], unsigned size);
 
-/*  union()
+/*  setIntersection()
  *  Purpose: Takes the intersections of two sets.
  *  Parameters: Three arrays, and a size.  All arrays must be of at least this
  *           size.  The third array will be modified, filled with the
  *           intersection of the first two.
  *  Returns: None.
  */
-void intersection(bool a[], bool b[], bool c[], unsigned size);
+void setIntersection(bool a[], bool b[], bool c[], unsigned size);
 
 /*  isSubset()
  *  Purpose: Determines if one set is a subset of another.

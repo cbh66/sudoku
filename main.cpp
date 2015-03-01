@@ -36,7 +36,6 @@ Hypothetical - last resort, should only be needed for super-hard puzzles.
 #include "sudoku.h"
 #include "consistency.h"
 #include "solve.h"
-#include "uniqueness.h"
 using namespace std;
 
 bool read(int board[][SIZE]);

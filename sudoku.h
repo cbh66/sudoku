@@ -22,4 +22,32 @@ struct Guess {
     int contents;
 };
 
+/*  setNum()
+ *  Purpose: Sets up the square at a particular index.
+ *  Parameters: A pointer to the square to set up; the number to set it to.
+ *           If this number is SENTINEL, the square is set up to allow
+ *           all possibilities.  Otherwise, it indicates the value given.
+ *  Returns: None.
+ *  Side effects: Modifies the Guess pointed to.
+ */
+void setNum(Guess *square, int num);
+
+/*  numGuesses()
+ *  Purpose: Calculates the number of guesses on the board, ie. the sum of the
+ *           possibilities for each square.
+ *  Parameters: The board, which must be of SIZExSIZE.  It will not be
+ *           modified.
+ *  Returns: An integer representing the number of guesses.
+ */
+int numGuesses(Guess board[][SIZE]);
+
+/*  numCertain()
+ *  Purpose: Calculates the number of squares in the board that have been
+ *           solved.
+ *  Parameters: The board, which must be SIZExSIZE.  It will not be
+ *           modified.
+ *  Returns: An integer representing the number of solved squares.
+ */
+int numCertain(Guess board[][SIZE]);
+
 #endif

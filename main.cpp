@@ -50,19 +50,20 @@ void printGuesses(Guess board[][SIZE]);
 
 int main()
 {
-  int board[SIZE][SIZE];
+    int board[SIZE][SIZE];
 
-  if (!read(board) || !isPossible(board)) {
-    cout << "It is impossible to solve this board." << endl;
-    return 1;
-  }
-  print(board);
-  cout << endl;
-  solve(board);
-  print(board);
+    if (!read(board) || !isPossible(board)) {
+        cout << "It is impossible to solve this board." << endl;
+        return 1;
+    }
+    print(board);
+    cout << endl;
+    solve(board);
+    print(board);
 
-  return 0;
+    return 0;
 }
+
 
 /* read()
  *  Purpose: Reads the board from std input, storing it in the given 2-D
@@ -74,21 +75,22 @@ int main()
  */
 bool read(int board[][SIZE])
 {
-  int i, j, count = 0;
-  string x;
-  for (i = 0; i < SIZE; i++) {
-    for (j = 0; j < SIZE; j++) {
-      cin >> board[i][j];
-      if (cin.fail()) {
-        cin.clear();
-        board[i][j] = SENTINEL;
-      } else {
-	      count++;
-      }
+    int i, j, count = 0;
+    string x;
+    for (i = 0; i < SIZE; ++i) {
+        for (j = 0; j < SIZE; ++j) {
+            cin >> board[i][j];
+            if (cin.fail()) {
+                cin.clear();
+                board[i][j] = SENTINEL;
+            } else {
+               ++count;
+            }
+        }
     }
-  }
-  return (count >= MIN);
+    return (count >= MIN);
 }
+
 
 /* print()
  *  Purpose: Prints the given board to std output.
@@ -98,17 +100,17 @@ bool read(int board[][SIZE])
  */
 void print(int board[][SIZE])
 {
-  int i, j;
-  for (i = 0; i < SIZE; i++) {
-    for (j = 0; j < SIZE; j++) {
-      if (j != 0) cout << " ";
-      if (board[i][j] == SENTINEL) cout << "-";
-      else cout << board[i][j];
+    int i, j;
+    for (i = 0; i < SIZE; ++i) {
+        for (j = 0; j < SIZE; ++j) {
+            if (j != 0) cout << " ";
+            if (board[i][j] == SENTINEL) cout << "-";
+            else cout << board[i][j];
+        }
+        cout << endl;
     }
-    cout << endl;
-  }
-
 }
+
 
 /* solve()
  *   Purpose:  Solves the given board to the extent that it is possible to do
@@ -119,50 +121,28 @@ void print(int board[][SIZE])
  */
 void solve(int board[][SIZE])
 {
-  int i, j;
-  Guess copy[SIZE][SIZE];
-  for (i = 0; i < SIZE; i++) {
-    for (j = 0; j < SIZE; j++) {
-	    setNum(&copy[i][j], board[i][j]);
+    int i, j, k;
+    Guess copy[SIZE][SIZE];
+    for (i = 0; i < SIZE; ++i) {
+        for (j = 0; j < SIZE; ++j) {
+	       setNum(&copy[i][j], board[i][j]);
+        }
     }
-  }
 
-  solveAll(copy);
+    solveAll(copy);
 
-  for (i = 0; i < SIZE; i++) {
-    for (j = 0; j < SIZE; j++) {
-      if (copy[i][j].amt == 1) {
-      	int k;
-      	for (k = 0; k < SIZE; k++) {
-      	  if (copy[i][j].possible[k]) break;
-      	}
-      	board[i][j] = k + 1;
-      }
+    for (i = 0; i < SIZE; ++i) {
+        for (j = 0; j < SIZE; ++j) {
+            if (copy[i][j].amt == 1) {
+                for (k = 0; k < SIZE; ++k) {
+                    if (copy[i][j].possible[k]) break;
+                }
+                board[i][j] = k + 1;
+            }
+        }
     }
-  }
 }
 
-/*  setNum()
- *  Purpose: Sets up the square at a particular index.
- *  Parameters: A pointer to the square to set up; the number to set it to.
- *           If this number is SENTINEL, the square is set up to allow
- *           all possibilities.  Otherwise, it indicates the value given.
- *  Returns: None.
- *  Side effects: Modifies the Guess pointed to.
- */
-void setNum(Guess *square, int num)
-{
-  int i;
-  for (i = 0; i < SIZE; ++i) {
-    square->possible[i] = (num == SENTINEL);
-  }
-  square->amt = (num == SENTINEL) ? SIZE : 1;
-  if (num != SENTINEL) {
-    square->contents = num;
-    square->possible[num - 1] = true;
-  }
-  cout << square->amt << " ";
-}
 
 /*  solveAll()
  *  Purpose: Given a board of guesses, eliminates possibilities to solve it.
@@ -175,73 +155,37 @@ void setNum(Guess *square, int num)
  */
 void solveAll(Guess board[][SIZE])
 {
-  int before =  numGuesses(board);
-  int after = 0;
-  cerr << "Before: " << before << endl;
-  printGuesses(board);
-  while (before != after) {
-    elimAllRepeats(board);
-    cerr << "Eliminated some repeats: left with " << numGuesses(board) << endl;
+    int before =  numGuesses(board);
+    int after = 0;
+    cerr << "Before: " << before << endl;
     printGuesses(board);
-    findUniqueNums(board);
-    cerr << "Found some unique numbers: left with " << numGuesses(board) << endl;
-    printGuesses(board);
+    while (before != after) {
+        elimAllRepeats(board);
+        cerr << "Eliminated some repeats: left with " << numGuesses(board)
+             << endl;
+        printGuesses(board);
+        findUniqueNums(board);
+        cerr << "Found some unique numbers: left with " << numGuesses(board)
+             << endl;
+        printGuesses(board);
 
-    before = after;
-    after = numGuesses(board);
-    cerr << "Next: " << after << endl;
-  }
-
-}
-
-/*  numGuesses()
- *  Purpose: Calculates the number of guesses on the board, ie. the sum of the
- *           possibilities for each square.
- *  Parameters: The board, which must be of SIZExSIZE.  It will not be
- *           modified.
- *  Returns: An integer representing the number of guesses.
- */
-int numGuesses(Guess board[][SIZE])
-{
-  int i, j, count = 0;
-  for (i = 0; i < SIZE; i++) {
-    for (j = 0; j < SIZE; j++) {
-      if (board[i][j].amt != 1) {
-        count += board[i][j].amt;
-      }
+        before = after;
+        after = numGuesses(board);
+        cerr << "Next: " << after << endl;
     }
-  }
-  return count;
 }
 
-/*  numCertain()
- *  Purpose: Calculates the number of squares in the board that have been
- *           solved.
- *  Parameters: The board, which must be SIZExSIZE.  It will not be
- *           modified.
- *  Returns: An integer representing the number of solved squares.
- */
-int numCertain(Guess board[][SIZE])
-{
-  int i, j, count = 0;
-  for (i = 0; i < SIZE; i++) {
-    for (j = 0; j < SIZE; j++) {
-      count += (board[i][j].amt == 1);
-    }
-  }
-  return count;
-}
 
 // For debugging.  Prints the number of possibilities at each square.
 void printGuesses(Guess board[][SIZE])
 {
-  int i, j;
-  for (i = 0; i < SIZE; i++) {
-    for (j = 0; j < SIZE; j++) {
-      cout << board[i][j].amt << " ";
+    int i, j;
+    for (i = 0; i < SIZE; ++i) {
+        for (j = 0; j < SIZE; ++j) {
+            cout << board[i][j].amt << " ";
+        }
+        cout << endl;
     }
     cout << endl;
-  }
-  cout << endl;
 }
 

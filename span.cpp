@@ -17,7 +17,7 @@ using namespace std;
     We take the union of all of their possibilities.
     If the amount in that intersection is equal to the amount of unsolved
         squares, then the values must be shared between them.
-    Hence we remove the value of the intersection from this square's
+    Hence we remove the values of the intersection from this square's
         possibilites
  */
 

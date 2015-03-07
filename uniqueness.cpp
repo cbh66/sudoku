@@ -13,12 +13,12 @@ int blockOccurrences(Guess board[][SIZE], int num, int blockX, int blockY);
 
 void findUniqueNums(Guess board[][SIZE])
 {
-    int i, j, current;
+    unsigned i, j, current;
     for (i = 0; i < SIZE; i++) {
         for (j = 0; j < SIZE; j++) {
             if (board[i][j].amt == 1) continue;
             current = uniqueNum(board, i, j);
-            if (current != SENTINEL) {
+            if ((int) current != SENTINEL) {
                 setNum(&board[i][j], current);
             }
         }
@@ -36,8 +36,7 @@ void findUniqueNums(Guess board[][SIZE])
  */
 int uniqueNum(Guess board[][SIZE], int x, int y)
 {
-    int i;
-    for (i = 0; i < SIZE; i++) {
+    for (unsigned i = 0; i < SIZE; i++) {
         if (board[x][y].possible[i]) {
             if (rowOccurrences(board, i + 1, x) == 1 ||
       	        colOccurrences(board, i + 1, y) == 1 ||
@@ -61,7 +60,7 @@ int uniqueNum(Guess board[][SIZE], int x, int y)
  */
 int rowOccurrences(Guess board[][SIZE], int num, int row)
 {
-    int i, count = 0;
+    unsigned i, count = 0;
     for (i = 0; i < SIZE; i++) {
         if (board[row][i].possible[num - 1]) ++count;
     }
@@ -79,7 +78,7 @@ int rowOccurrences(Guess board[][SIZE], int num, int row)
  */
 int colOccurrences(Guess board[][SIZE], int num, int col)
 {
-    int i, count = 0;
+    unsigned i, count = 0;
     for (i = 0; i < SIZE; i++) {
         if (board[i][col].possible[num - 1]) ++count;
     }
@@ -98,7 +97,7 @@ int colOccurrences(Guess board[][SIZE], int num, int col)
  */
 int blockOccurrences(Guess board[][SIZE], int num, int blockX, int blockY)
 {
-    int i, j, count = 0;
+    unsigned i, j, count = 0;
     for (i = blockX; i < blockX + BLOCK; ++i) {
         for (j = blockY; j < blockY + BLOCK; ++j) {
             if (board[i][j].possible[num - 1]) ++count;

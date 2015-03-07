@@ -24,4 +24,19 @@ void elimAllRepeats(Guess board[][SIZE]);
  */
 void findUniqueNums(Guess board[][SIZE]);
 
+/*  eliminateGroups()
+ *  Purpose: Considers all "subgroups" -- sets of three squares where a row or
+ *           column intersects a block.  If there are any possibilities in this
+ *           subgroup not present elsewhere in the row/column, they are
+ *           eliminated from the rest of the block.  Similarly, if they are not
+ *           present in the rest of the block, they are eliminated from the
+ *           row/column.
+ *  Parameters: The array of guesses to examine, which will be modified.
+ *  Returns: Nothing.
+ */
+void eliminateGroups(Guess board[SIZE][SIZE]);
+
+
+void eliminatePermutations(Guess board[SIZE][SIZE]);
+
 #endif

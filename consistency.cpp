@@ -19,22 +19,21 @@ bool isPossible(int board[][SIZE])
  */
 bool validRows(int board[][SIZE])
 {
-  int i, j;
-  bool vals[SIZE];
-  for (i = 0; i < SIZE; i++) {
-    for (j = 0; j < SIZE; j++) {
-      vals[j] = false;
+    bool vals[SIZE];
+    for (unsigned row = 0; row < SIZE; ++row) {
+        for (unsigned i = 0; i < SIZE; ++i) {
+            vals[i] = false;
+        }
+        for (unsigned col = 0; col < SIZE; ++col) {
+            if (board[row][col] == SENTINEL) continue;
+            if (vals[board[row][col] - 1]) {
+                return false;
+            } else {
+                vals[board[row][col] - 1] = true;
+            }
+        }
     }
-    for (j = 0; j < SIZE; j++) {
-      if (board[i][j] == SENTINEL) continue;
-      if (vals[board[i][j] - 1]) {
-	      return false;
-      } else {
-	      vals[board[i][j] - 1] = true;
-      }
-    }
-  }
-  return true;
+    return true;
 }
 
 
@@ -46,22 +45,21 @@ bool validRows(int board[][SIZE])
  */
 bool validCols(int board[][SIZE])
 {
-  int i, j;
-  bool vals[SIZE];
-  for (j = 0; j < SIZE; j++) {
-    for (i = 0; i < SIZE; i++) {
-      vals[i] = false;
+    bool vals[SIZE];
+    for (unsigned col = 0; col < SIZE; col++) {
+        for (unsigned i = 0; i < SIZE; i++) {
+            vals[i] = false;
+        }
+        for (unsigned row = 0; row < SIZE; ++row) {
+            if (board[row][col] == SENTINEL) continue;
+            if (vals[board[row][col] - 1]) {
+                return false;
+            } else {
+                vals[board[row][col] - 1] = true;
+            }
+        }
     }
-    for (i = 0; i < SIZE; i++) {
-      if (board[i][j] == SENTINEL) continue;
-      if (vals[board[i][j] - 1]) {
-      	return false;
-      } else {
-      	vals[board[i][j] - 1] = true;
-      }
-    }
-  }
-  return true;
+    return true;
 }
 
 
@@ -73,29 +71,27 @@ bool validCols(int board[][SIZE])
  */
 bool validBlocks(int board[][SIZE])
 {
-  int i, j, k, l, x, y;
-  int num_blocks = SIZE / BLOCK;
-  bool vals[SIZE];
-  for (i = 0; i < num_blocks; i++) {
-    for (j = 0; j < num_blocks; j++) {
-      for (x = 0; x < SIZE; x++) {
-      	vals[x] = false;
-      }
+    bool vals[SIZE];
+    for (unsigned v_block = 0; v_block < BLOCK; ++v_block) {
+        for (unsigned h_block = 0; h_block < BLOCK; ++h_block) {
+            for (unsigned i = 0; i < SIZE; ++i) {
+                vals[i] = false;
+            }
 
-      for (k = 0; k < BLOCK; k++) {
-      	for (l = 0; l < BLOCK; l++) {
-      	  x = (BLOCK * i) + k;
-      	  y = (BLOCK * j) + l;
-      	  if (board[x][y] == SENTINEL) continue;
-      	  if (vals[board[x][y] - 1]) {
-      	    return false;
-      	  } else {
-      	    vals[board[x][y] - 1] = true;
-      	  }
-      	}
-      }
+            for (unsigned block_row = 0; block_row < BLOCK; ++block_row) {
+                for (unsigned block_col = 0; block_col < BLOCK; ++block_col) {
+                    unsigned row = (BLOCK * v_block) + block_row;
+                    unsigned col = (BLOCK * h_block) + block_col;
+                    if (board[row][col] == SENTINEL) continue;
+                    if (vals[board[row][col] - 1]) {
+                        return false;
+                    } else {
+                        vals[board[row][col] - 1] = true;
+                    }
+                }
+            }
+        }
     }
-  }
-  return true;
+    return true;
 }
 

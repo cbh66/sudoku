@@ -1,5 +1,5 @@
 PROGNAME=solve
-FILES=main.cpp repeats.cpp sudoku.cpp uniqueness.cpp consistency.cpp
+FILES=main.cpp uniqueness.cpp repeats.cpp sudoku.cpp consistency.cpp span.cpp set.cpp permutation.cpp
 OBJS=$(FILES:.cpp=.o)
 DEPENDENCIES=$(FILES:.cpp=.d)
 
@@ -20,7 +20,7 @@ $(PROGNAME): $(OBJS)
 
 # makes dependencies you can use, so you know to recompile when a header changes
 %.d: %.cpp
-	$(CC) $(CFLAGS) -MM $*.cpp > $*.d
+	$(CXX) $(CFLAGS) -MM $*.cpp > $*.d
 
 clean:
 	rm -f *.o *.d *~ core.* $(PROGNAME)

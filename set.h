@@ -32,6 +32,13 @@ void setIntersection(bool a[], bool b[], bool c[], unsigned size);
  */
 bool isSubset(bool a[], bool b[], unsigned size);
 
+/*  cardinality()
+ *  Purpose: Determines the cardinality of a set, ie. the number of "true"s
+ *  Parameters: An array and a size.  The array must be at least this size.
+ *  Returns: An unsigned integer representing the number of elements.
+ */
+unsigned cardinality(bool a[], unsigned size);
+
 /*  isEmpty()
  *  Purpose: Determines if a given set is empty or not.
  *  Parameters: An array and a size.  The array must be at least this size.
@@ -47,5 +54,17 @@ bool isEmpty(bool a[], unsigned size);
  *  Returns: true if the arrays share at least one element, false otherwise.
  */
 bool overlap(bool a[], bool b[], unsigned size);
+
+/*  setFromInt()
+ *  Purpose: Generates a set based on the binary representation of a given
+ *           integer.
+ *  Parameters: An integer from which to generate the set; an array in which to
+ *           place the set; a size.  The array must be at least this size, and
+ *           size must satisfy 0 <= size <= 8 * sizeof(int)
+ *  Returns: None.
+ *  Notes:   One can generate the power set of n elements using this function,
+ *           passing, in turn, each of the integers from 0 to 2^n.
+ */
+void setFromInt(int n, bool set[], unsigned size);
 
 #endif

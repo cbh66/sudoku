@@ -1,10 +1,10 @@
 #ifndef SUDOKU_H_INCLUDED
 #define SUDOKU_H_INCLUDED
 
-const int SIZE = 9;
-const int BLOCK = 3;
+const unsigned SIZE = 9;
+const unsigned BLOCK = 3;
 const int SENTINEL = 0;
-const int MIN = 17;
+const unsigned MIN = 17;
 
 /*   Contains a Guess for a given square of a sudoku board.
  *   certain refers to whether this square has yet been solved
@@ -16,10 +16,8 @@ const int MIN = 17;
  *        possible[] are true.  Of course, if certain is true, amt == 1.
  */
 struct Guess {
-    bool certain;
-    int amt;
+    unsigned amt;
     bool possible[SIZE];
-    int contents;
 };
 
 /*  setNum()
@@ -30,7 +28,7 @@ struct Guess {
  *  Returns: None.
  *  Side effects: Modifies the Guess pointed to.
  */
-void setNum(Guess *square, int num);
+void setNum(Guess *square, unsigned num);
 
 /*  numGuesses()
  *  Purpose: Calculates the number of guesses on the board, ie. the sum of the
@@ -49,5 +47,14 @@ int numGuesses(Guess board[][SIZE]);
  *  Returns: An integer representing the number of solved squares.
  */
 int numCertain(Guess board[][SIZE]);
+
+/*  printBoard()
+ *  Purpose: Prints the current board of guesses in a nicely formatted output
+ *           that lists for each box all possibilities, and indicates the
+ *           board's division into blocks.
+ *  Parameters: The board to print.
+ *  Returns: None.
+ */
+void printBoard(Guess board[SIZE][SIZE]);
 
 #endif

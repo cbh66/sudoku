@@ -1,5 +1,5 @@
 PROGNAME=solve
-FILES=main.cpp uniqueness.cpp repeats.cpp sudoku.cpp consistency.cpp span.cpp set.cpp permutation.cpp
+FILES=main.cpp uniqueness.cpp sudoku.cpp consistency.cpp span.cpp set.cpp permutation.cpp
 OBJS=$(FILES:.cpp=.o)
 DEPENDENCIES=$(FILES:.cpp=.d)
 

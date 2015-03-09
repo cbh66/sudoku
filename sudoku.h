@@ -57,4 +57,15 @@ int numCertain(Guess board[][SIZE]);
  */
 void printBoard(Guess board[SIZE][SIZE]);
 
+/* isPossible
+ *   Purpose:  Checks if it is possible to solve a board.
+ *   Parameters:  The board to check.
+ *   Returns:  True if possible, false if impossible.
+ *   Notes:    This function can be used in two ways:
+ *             - To check if an incomplete board is consistent, and so possible
+ *                to solve; or
+ *             - To check if a completed board is correctly solved.
+ */
+bool isPossible(int board[][SIZE]);
+
 #endif

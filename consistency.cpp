@@ -1,4 +1,10 @@
-#include "consistency.h"
+#include "sudoku.h"
+
+
+bool validRows(int board[][SIZE]);
+bool validCols(int board[][SIZE]);
+bool validBlocks(int board[][SIZE]);
+
 
 /* isPossible
  *   Purpose:  Checks if it is possible to solve an incomplete board

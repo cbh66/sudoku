@@ -2,16 +2,6 @@
 #define SOLVE_H_INCLUDED
 #include "sudoku.h"
 
-/*  elimAllRepeats()
- *  Purpose: Eliminates possibilites on the board based on squares that have
- *           been solved.  That is, for every solved square, its value is
- *           removed as a possibility from squares in the same row, column,
- *           or block.
- *  Parameters: The array of guesses, which will be modified.
- *  Returns: Nothing.
- */
-void elimAllRepeats(Guess board[][SIZE]);
-
 /*  findUniqueNums()
  *  Purpose: For every square, checks if it has a possibility that is unique
  *           in its row, column, or block.  If so, that possibility becomes
@@ -36,7 +26,19 @@ void findUniqueNums(Guess board[][SIZE]);
  */
 void eliminateGroups(Guess board[SIZE][SIZE]);
 
-
+/*  eliminatePermutations()
+ *  Purpose: Considers all subsets of a row, column, and block.  If the
+ *           subgroup has size n, and they share exactly n possibilities
+ *           among them, then these possibilities are eliminated from
+ *           elsewhere in the row, column, or block.
+ *           Special cases:
+ *           - Solved squares are treated as a group of size 1, and so are
+ *             eliminated from elsewhere in the row, column, and block.
+ *           - Twin exclusion: when two squares share two values, these can
+ *             be eliminated from elsewhere in the row/column/block.
+ *           - Subgroup exclusion: Considers where a row/column intersects a
+ *             block.
+ */
 void eliminatePermutations(Guess board[SIZE][SIZE]);
 
 #endif

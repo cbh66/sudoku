@@ -40,6 +40,38 @@
             If the number of rows equals the number of columns:
                 Eliminate i as a possibility from each of the rows in the union
 
+X-Y Wing: Find three squares, each with two possibilities, where the union of
+    these possibilities has 3 elements.
+
+Alternate Pair Exclusion: Even more generalized.  You needn't just consider
+    rows and columns: blocks can help too.  Ultimately, you look, for each
+    number, to find a pair of blocks that have the number and are in the same
+    row, column, or block.  You then look to "chain" on to this with more
+    squares with this possibility that share a row, column, or block with the
+    previous thing in the chain.  Then color the chain alternating red/blue.
+    If a row, column, or block has both a red and blue square in it, the number
+    can be eliminated from elsewhere in the row, column, or block.
+
+Alternate Pair Deduction: Actually uses the same chain-making as above, but
+    after coloring, you look for rows, columns, or blocks, where there are
+    two of the same color.  If this is the case, the chosen number must be
+    assigned to squares with the other color.
+
+Alternate way of constructing the above chains, probably better:
+    Consider pairs of squares in rows, columns, or blocks, where these squares
+    are the only ones with the given possibility.  A "strong" chaining can be
+    made if elements of two different pairs are linked by being a pair
+    themselves in a group.  Then the previous two rules apply.
+    But a "weak" pairing is also possible: where squares from different pairs
+    share a row/col/group, but are not themselves a pair (another possibility
+    somewhere precludes it).  In this case, you must make two separate chains
+    and color separately, but can still link the chains by "connecting" the
+    colors of the squares that form the link.
+    The aim is: if two elements have separate colors, you are saying: if
+    squares of one color get the number, squares of the other color cannot
+    get it.  If they have the same color, you're saying: if one square of this
+    color gets it, ALL squares of this color get it.
+
 Hypothetical - last resort, should only be needed for super-hard puzzles.
     Essentially, test each possibility for the unknown, and continue solving
     as if that were fact.  If this results in an inconsistent board, backtrack
@@ -48,7 +80,6 @@ Hypothetical - last resort, should only be needed for super-hard puzzles.
 
 #include <iostream>
 #include "sudoku.h"
-#include "consistency.h"
 #include "solve.h"
 using namespace std;
 
@@ -173,22 +204,20 @@ void solveAll(Guess board[][SIZE])
     cerr << "Before: " << before << endl;
     printGuesses(board);
     printBoard(board);
-    while (before != after) {/*
-        elimAllRepeats(board);
-        cerr << "Eliminated some repeats: left with " << numGuesses(board)
+    while (before != after) {
+        eliminatePermutations(board);
+        cerr << "Examined subsets: left with " << numGuesses(board)
              << endl;
-        printBoard(board);*/
+        printBoard(board);
+
         findUniqueNums(board);
         cerr << "Found some unique numbers: left with " << numGuesses(board)
              << endl;
-        printBoard(board);/*
+        printBoard(board);
+
         eliminateGroups(board);
-        cerr << "Eliminated some row groups: left with " << numGuesses(board)
-             << endl;
-        printBoard(board);*/
-        eliminatePermutations(board);
-        cerr << "Dealt with permutations: left with " << numGuesses(board)
-             << endl;
+        cerr << "Eliminated subgroup intersections: left with "
+             << numGuesses(board) << endl;
         printBoard(board);
 
         before = after;
